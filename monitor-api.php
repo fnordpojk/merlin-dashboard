@@ -159,7 +159,7 @@ if ( $uh_hosts_count > 0 ) {
    $hosts = api_query("$server/api/filter/query?query=" . $uh_hosts . $uh_hosts_filter . "&columns=name,alias,last_hard_state_change,last_check&limit=$hosts_limit");
    asort($hosts);
 
-   while ( list(, $row) = each($hosts) ) {
+   foreach($hosts as $row) {
       $duration = _print_duration($row['last_hard_state_change'], time());
       $date = date("Y-m-d H:i:s", $row['last_check']);
 
@@ -177,7 +177,7 @@ if ( $uh_services_count > 0 ) {
    $services = api_query("$server/api/filter/query?query=" . $uh_services . $uh_services_filter . "&columns=host.name,description,state,plugin_output,last_hard_state_change,last_check&limit=$services_limit");
    usort($services, "sort_by_state");
 
-   while ( list(, $row) = each($services) ) {
+   foreach($services as $row) ) {
        if ($row['state'] == 2) {
           $class = "critical";
        } elseif ($row['state'] == 1) {
